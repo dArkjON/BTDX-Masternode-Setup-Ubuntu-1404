@@ -37,7 +37,7 @@ source ~/.profile
 echo '*** Done 2/5 ***'
 sleep 1
 echo '*** Step 3/5 ***'
-echo '*** Cloning and Compiling BitSend Wallet ***'
+echo '*** Cloning and Compiling Bitcloud Wallet ***'
 cd
 git clone https://github.com/LIMXTEC/Bitcloud.git
 cd Bitcloud
@@ -59,7 +59,7 @@ cd
 echo '*** Done 3/5 ***'
 sleep 2
 echo '*** Step 4/5 ***'
-echo '*** Configure bitsend.conf and download and import bootstrap file ***'
+echo '*** Configure bitcloud.conf and download and import bootstrap file ***'
 sleep 2
 
 bitcloudd
