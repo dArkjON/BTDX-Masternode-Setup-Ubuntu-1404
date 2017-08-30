@@ -6,9 +6,9 @@
 ######################################################################
 
 clear
-echo "*********** Welcome to the BitSend (BSD) Masternode Setup Script ***********"
+echo "*********** Welcome to the Bitcloud (BTDX) Masternode Setup Script ***********"
 echo 'This script will install all required updates & package for Ubuntu 14.04 !'
-echo 'Clone & Compile the BSD Wallet also help you on first setup and sync'
+echo 'Clone & Compile the BTDX Wallet also help you on first setup and sync'
 echo '****************************************************************************'
 sleep 3
 echo '*** Step 1/5 ***'
