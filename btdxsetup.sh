@@ -15,8 +15,8 @@ echo '*** Step 1/5 ***'
 echo '*** Creating 2GB Swapfile ***'
 sleep 1
 dd if=/dev/zero of=/mnt/mybtdxswap.swap bs=2M count=1000
-mkswap /mnt/mybsdswap.swap
-swapon /mnt/mybsdswap.swap
+mkswap /mnt/mybtdxswap.swap
+swapon /mnt/mybtdxswap.swap
 sleep 1
 echo '*** Done 1/5 ***'
 sleep 1
