@@ -25,7 +25,7 @@ echo '*** Running updates and install required packages ***'
 sleep 2
 sudo apt-get update -y
 sudo apt-get dist-upgrade -y
-sudo apt-get install build-essential libtool autotools-dev autoconf pkg-config libssl-dev -y
+sudo apt-get install automake build-essential libtool autotools-dev autoconf pkg-config libssl-dev -y
 sudo apt-get install libboost-all-dev git npm nodejs nodejs-legacy libminiupnpc-dev redis-server -y
 sudo apt-get install software-properties-common -y
 sudo apt-get install libevent-dev -y
