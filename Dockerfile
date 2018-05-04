@@ -2,7 +2,7 @@
 #
 # The Dockerfile will install all required stuff to run a Bitcloud (BTDX) Masternode and is based on script btdxsetup.sh (see: https://github.com/dArkjON/BTDX-Masternode-Setup-Ubuntu-1404/blob/master/btdxsetup.sh)
 # Bitcloud Repo : https://github.com/LIMXTEC/Bitcloud
-# E-Mail: info@xxx
+# E-Mail: info@bit-cloud.info
 # 
 # To build a docker image for btdx-masternode from the Dockerfile the bitcloud.conf is also needed.
 # See BUILD_README.md for further steps.
@@ -14,7 +14,7 @@ LABEL maintainer="Jon D. (dArkjON), David B. (dalijolijo)"
 LABEL version="0.1"
 
 # Make ports available to the world outside this container
-EXPOSE 8886 8800
+EXPOSE 8329 51473
 
 USER root
 
@@ -47,6 +47,7 @@ RUN echo '*** Step 2/10 - Allocating 2GB Swapfile ***' && \
 #
 # Step 3/10 - Running updates and installing required packages
 #
+# nodejs nodejs-legacy redis-server npm
 RUN echo '*** Step 3/10 - Running updates and installing required packages ***' && \
     apt-get update -y && \
     apt-get dist-upgrade -y && \
@@ -76,13 +77,18 @@ RUN echo '*** Step 3/10 - Running updates and installing required packages ***' 
                         libdb4.8++-dev && \
     echo '*** Done 3/10 ***'
 
+# TODO
+#curl https://raw.githubusercontent.com/creationix/nvm/v0.16.1/install.sh | sh
+#source ~/.profile
+
+
 #
 # Step 4/10 - Cloning and Compiling Bitcloud Wallet
 #
 RUN echo '*** Step 4/10 - Cloning and Compiling Bitcloud Wallet ***' && \
     cd && \
     echo "Execute a git clone of LIMXTEC/Bitcloud. Please wait..." && \
-    git clone --branch v0.14 --depth 1 https://github.com/LIMXTEC/Bitcloud && \
+    git clone https://github.com/LIMXTEC/Bitcloud.git && \
     cd Bitcloud && \
     ./autogen.sh && \
     ./configure --disable-dependency-tracking --enable-tests=no --without-gui && \
@@ -93,6 +99,8 @@ RUN echo '*** Step 4/10 - Cloning and Compiling Bitcloud Wallet ***' && \
     cp bitcloudd /usr/local/bin && \
     strip bitcloud-cli && \
     cp bitcloud-cli /usr/local/bin && \
+    strip bitcloud-tx && \
+    cp bitcloud-tx /usr/local/bin && \
     chmod 775 /usr/local/bin/bitcloud* && \   
     cd && \
     rm -rf Bitcloud && \
