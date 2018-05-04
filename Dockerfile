@@ -75,12 +75,7 @@ RUN echo '*** Step 3/10 - Running updates and installing required packages ***' 
     apt-get upgrade -y && \
     apt-get install -y  libdb4.8-dev \
                         libdb4.8++-dev && \
-    echo '*** Done 3/10 ***'
-
-# TODO
-#curl https://raw.githubusercontent.com/creationix/nvm/v0.16.1/install.sh | sh
-#source ~/.profile
-
+    echo '*** Done 03/10 ***'
 
 #
 # Step 4/10 - Cloning and Compiling Bitcloud Wallet
