@@ -6,7 +6,7 @@ The Dockerfile will install all required stuff to run a Bitcloud (BTDX) Masterno
 - Linux Ubuntu 16.04 LTS
 - Running as docker host server (package docker.io installed)
 ```
-apt-get update -y
+apt-get update
 apt-get upgrade -y
 apt-get install docker.io -y
 ```
@@ -28,7 +28,7 @@ swapon /swapfile
 
 ## Build docker image
 ```
-docker build [--build-arg TDXPWD='<bitcloud user pwd>'] -t btdx-masternode .
+docker build [--build-arg BTDXPWD='<bitcloud user pwd>'] -t btdx-masternode .
 ```
 
 ## Push docker image to hub.docker
