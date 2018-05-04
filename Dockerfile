@@ -4,7 +4,7 @@
 # Bitcloud Repo : https://github.com/LIMXTEC/Bitcloud
 # E-Mail: info@xxx
 # 
-# To build a docker image for bsd-masternode from the Dockerfile the bitcloud.conf is also needed.
+# To build a docker image for btdx-masternode from the Dockerfile the bitcloud.conf is also needed.
 # See BUILD_README.md for further steps.
 
 # Use an official Ubuntu runtime as a parent image
