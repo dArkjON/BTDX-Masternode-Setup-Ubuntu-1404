@@ -43,7 +43,6 @@ yes | ufw enable
 #
 apt-get update
 apt-get upgrade -y
-apt-get install docker.io
 apt-get install docker.io -y
 docker pull ${DOCKER_REPO}/btdx-masternode
 docker run -p 8329:8329 -p 51473:51473 --name btdx-masternode -e BTDXPWD='${PWD}' -e MN_KEY='${MN_KEY}' -v /home/bitcloud:/home/bitcloud:rw -d ${DOCKER_REPO}/btdx-masternode
