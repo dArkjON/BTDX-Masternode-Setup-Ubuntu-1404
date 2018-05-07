@@ -21,7 +21,7 @@ sed -i "s/^\(masternodeprivkey=\).*/\masternodeprivkey=${MN_KEY}/" /home/bitclou
 #
 printf "** Step 8/10 - Downloading bootstrap file ***"
 cd /home/bitcloud/.bitcloud/
-if if [ ! -d /home/bitcloud/.bitcloud/blocks ] && [ "$(curl -Is https://bit-cloud.info/${BOOTSTRAP} | head -n 1 | tr -d '\r\n')" = "HTTP/1.1 200 OK" ] ; then \
+if [ ! -d /home/bitcloud/.bitcloud/blocks ] && [ "$(curl -Is https://bit-cloud.info/${BOOTSTRAP} | head -n 1 | tr -d '\r\n')" = "HTTP/1.1 200 OK" ] ; then \
         sudo -u bitcloud wget  https://bit-cloud.info/${BOOTSTRAP}; \
         sudo -u bitcloud tar -xvzf ${BOOTSTRAP}; \
 fi
