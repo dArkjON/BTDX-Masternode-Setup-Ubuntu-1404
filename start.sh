@@ -25,6 +25,7 @@ cd /home/bitcloud/.bitcloud/
 if [ ! -d /home/bitcloud/.bitcloud/blocks ] && [ "$(curl -Is https://bit-cloud.info/${BOOTSTRAP} | head -n 1 | tr -d '\r\n')" = "HTTP/1.1 200 OK" ] ; then \
         sudo -u bitcloud wget  https://bit-cloud.info/${BOOTSTRAP}; \
         sudo -u bitcloud tar -xvzf ${BOOTSTRAP}; \
+        sudo -u bitcloud rm ${BOOTSTRAP}; \
 fi
 printf "*** Done 8/10 ***"
 
