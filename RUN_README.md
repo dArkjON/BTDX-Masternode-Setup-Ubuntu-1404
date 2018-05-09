@@ -20,7 +20,7 @@ docker pull <repository>/btdx-masternode
 
 ## Run docker container
 ```
-docker run -p 8329:8329 -p 51473:51473 --name btdx-masternode -e BTDXPWD='NEW_BTDX_PWD' -e MN_KEY='YOUR_MN_KEY' -v /home/bitcloud:/home/bitcloud:rw -d <repository>/bsd-masternode
+docker run -p 8329:8329 -p 51473:51473 --name btdx-masternode -e BTDXPWD='NEW_BTDX_PWD' -e MN_KEY='YOUR_MN_KEY' -v /home/bitcloud:/home/bitcloud:rw -d <repository>/btdx-masternode
 docker ps
 ```
 
