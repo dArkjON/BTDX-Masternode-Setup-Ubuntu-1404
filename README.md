@@ -23,9 +23,9 @@ Support for the following distribution versions:
 Login as root, then do:
 
 ```
-wget https://raw.githubusercontent.com/LIMXTEC/BTDX-Masternode-Setup-Ubuntu-1404/master/btdxdocker.sh
-chmod +x btdxdocker.sh
-./btdxdocker.sh
+wget https://raw.githubusercontent.com/LIMXTEC/BTDX-Masternode-Setup-Ubuntu-1404/master/btdx-docker.sh
+chmod +x btdx-docker.sh
+./btdx-docker.sh
 ```
 
 ### For more details to docker related stuff have a look at:
