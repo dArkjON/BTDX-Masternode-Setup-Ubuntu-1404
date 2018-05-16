@@ -11,7 +11,7 @@
 FROM ubuntu:16.04
 
 LABEL maintainer="Jon D. (dArkjON), David B. (dalijolijo)"
-LABEL version="0.1"
+LABEL version="0.2"
 
 # Make ports available to the world outside this container
 EXPOSE 8329 51473
@@ -24,31 +24,21 @@ SHELL ["/bin/bash", "-c"]
 # Define environment variable
 ENV BTDXPWD "bitcloud"
 
-RUN echo '**********************************' && \
-    echo '*** Bitcloud (BTDX) Masternode ***' && \
-    echo '**********************************'
+RUN echo '*** Bitcloud (BTDX) Masternode ***'
 
 #
-# Step 1/10 - creating bitcloud user
+# Creating bitcloud user
 #
-RUN echo '*** Step 1/10 - creating bitcloud user ***' && \
+RUN echo '*** Creating bitcloud user ***' && \
     adduser --disabled-password --gecos "" bitcloud && \
     usermod -a -G sudo,bitcloud bitcloud && \
-    echo bitcloud:$BTDXPWD | chpasswd && \
-    echo '*** Done 1/10 ***'
+    echo bitcloud:$BTDXPWD | chpasswd
 
 #
-# Step 2/10 - Allocating 2GB Swapfile
-#
-RUN echo '*** Step 2/10 - Allocating 2GB Swapfile ***' && \
-    echo 'not needed: skipped' && \
-    echo '*** Done 2/10 ***'
-
-#
-# Step 3/10 - Running updates and installing required packages
+# Running updates and installing required packages
 #
 # nodejs nodejs-legacy redis-server npm
-RUN echo '*** Step 3/10 - Running updates and installing required packages ***' && \
+RUN echo '*** Running updates and installing required packages ***' && \
     apt-get update -y && \
     apt-get dist-upgrade -y && \
     apt-get install -y  apt-utils \
@@ -74,13 +64,12 @@ RUN echo '*** Step 3/10 - Running updates and installing required packages ***' 
     apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install -y  libdb4.8-dev \
-                        libdb4.8++-dev && \
-    echo '*** Done 03/10 ***'
+                        libdb4.8++-dev
 
 #
-# Step 4/10 - Cloning and Compiling Bitcloud Wallet
+# Cloning and Compiling Bitcloud Wallet
 #
-RUN echo '*** Step 4/10 - Cloning and Compiling Bitcloud Wallet ***' && \
+RUN echo '*** Cloning and Compiling Bitcloud Wallet ***' && \
     cd && \
     echo "Execute a git clone of LIMXTEC/Bitcloud. Please wait..." && \
     git clone https://github.com/LIMXTEC/Bitcloud.git && \
@@ -98,37 +87,14 @@ RUN echo '*** Step 4/10 - Cloning and Compiling Bitcloud Wallet ***' && \
     cp bitcloud-tx /usr/local/bin && \
     chmod 775 /usr/local/bin/bitcloud* && \   
     cd && \
-    rm -rf Bitcloud && \
-    echo '*** Done 4/10 ***'
+    rm -rf Bitcloud
 
 #
-# Step 5/10 - Adding firewall rules
+# Copy Supervisor Configuration and bitcloud.conf
 #
-RUN echo '*** Step 5/10 - Adding firewall rules ***' && \
-    echo 'must be configured on the socker host: skipped' && \
-    echo '*** Done 5/10 ***'
-
-#
-# Step 6/10 - Configure bitcloud.conf
-#
-COPY bitcloud.conf /tmp
-RUN echo '*** Step 6/10 - Configure bitcloud.conf ***' && \
-    chown bitcloud:bitcloud /tmp/bitcloud.conf && \
-    sudo -u bitcloud mkdir -p /home/bitcloud/.bitcloud && \
-    sudo -u bitcloud cp /tmp/bitcloud.conf /home/bitcloud/.bitcloud/ && \
-    echo '*** Done 6/10 ***'
-
-#
-# Step 7/10 - Adding bitcloudd daemon as a service
-#
-RUN echo '*** Step 7/10 - Adding bitcloudd daemon ***' && \
-    echo 'docker not supported systemd: skipped' && \
-    echo '*** Done 7/10 ***'
-
-#
-# Supervisor Configuration
-#
+RUN echo '*** Copy Supervisor Configuration and bitcloud.conf ***'
 COPY *.sv.conf /etc/supervisor/conf.d/
+COPY bitcloud.conf /tmp
 
 #
 # Logging outside docker container
@@ -138,10 +104,10 @@ VOLUME /var/log
 #
 # Start script
 #
+RUN echo '*** Copy start script ***'
 COPY start.sh /usr/local/bin/start.sh
-RUN \
-  rm -f /var/log/access.log && mkfifo -m 0666 /var/log/access.log && \
-  chmod 755 /usr/local/bin/*
+RUN rm -f /var/log/access.log && mkfifo -m 0666 /var/log/access.log && \
+    chmod 755 /usr/local/bin/*
 
 ENV TERM linux
 CMD ["/usr/local/bin/start.sh"]
