@@ -1,6 +1,5 @@
 #!/bin/bash
 set -u
-set -x
 
 BOOTSTRAP='bootstrap.tar.gz'
 
