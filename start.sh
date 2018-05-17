@@ -15,8 +15,8 @@ printf "** Set rpcuser, rpcpassword and masternode genkey ***"
 mkdir -p /home/bitcloud/.bitcloud
 chown -R bitcloud:bitcloud /home/bitcloud
 sudo -u bitcloud cp /tmp/bitcloud.conf /home/bitcloud/.bitcloud/
-sed -i "s/^\(rpcuser=\).*/\rpcuser=btdxmasternode$(openssl rand -base64 32)/" /home/bitcloud/.bitcloud/bitcloud.conf
-sed -i "s/^\(rpcpassword=\).*/\rpcpassword=$(openssl rand -base64 32)/" /home/bitcloud/.bitcloud/bitcloud.conf
+sed -i "s/^\(rpcuser=\).*/\rpcuser=btdxmasternode${BTDXPWD}/" /home/bitcloud/.bitcloud/bitcloud.conf
+sed -i "s/^\(rpcpassword=\).*/\rpcpassword=${BTDXPWD}/" /home/bitcloud/.bitcloud/bitcloud.conf
 sed -i "s/^\(masternodeprivkey=\).*/\masternodeprivkey=${MN_KEY}/" /home/bitcloud/.bitcloud/bitcloud.conf
 
 #
