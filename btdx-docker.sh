@@ -4,7 +4,15 @@ set -u
 DOCKER_REPO='dalijolijo'
 
 #
-# Check distro version (TODO)
+# Set bitcloud user pwd and masternode genkey
+#
+echo -n "Enter new password for [bitcloud] user and Hit [ENTER]: "
+read BTDXPWD
+echo -n "Enter your masternode genkey respond and Hit [ENTER]: "
+read MN_KEY
+
+#
+# Check distro version for further configurations (TODO)
 #
 if [ -f /etc/os-release ]; then
     # freedesktop.org and systemd
@@ -36,54 +44,33 @@ else
     VER=$(uname -r)
 fi
 
-if [[ $OS =~ "Ubuntu" ]] && [[ $VER =~ "16" ]] || [[ $OS =~ "ubuntu" ]] && [[ $VER =~ "16" ]]; then
-    echo "Installation for $OS ($VER)..."
+# Configurations for Ubuntu
+if [[ $OS =~ "Ubuntu" ]] || [[ $OS =~ "ubuntu" ]]; then
+    echo "Configuration for $OS ($VER)..."
+ 
+    # Firewall settings (for Ubuntu)
+    echo "Firewall settings"
+    ufw logging on
+    ufw allow 22/tcp
+    ufw limit 22/tcp
+    ufw allow 8329/tcp
+    ufw allow 51473/tcp
+    # if other services run on other ports, they will be blocked!
+    #ufw default deny incoming 
+    ufw default allow outgoing 
+    yes | ufw enable
+
+    # Installation further package (Ubuntu 16.04)
+    echo "Installation further package"
+    apt-get update
+    sudo apt-get install -y apt-transport-https \
+                           ca-certificates \
+                           curl \
+                           software-properties-common
 else
-    echo "$OS ($VER) not supported!"
+    echo "Configure firewall settings for $OS ($VER) not supported!"
     exit
 fi
-
-#
-# Set bitcloud user pwd and masternode genkey
-#
-echo '*** Step 0/10 - User input ***'
-echo -n "Enter new password for [bitcloud] user and Hit [ENTER]: "
-read BTDXPWD
-echo -n "Enter your masternode genkey respond and Hit [ENTER]: "
-read MN_KEY
-
-#
-# Firewall settings (for Ubuntu)
-#
-ufw logging on
-ufw allow 22/tcp
-ufw limit 22/tcp
-ufw allow 8329/tcp
-ufw allow 51473/tcp
-# if other services run on other ports, they will be blocked!
-#ufw default deny incoming 
-ufw default allow outgoing 
-yes | ufw enable
-
-#
-# Installation of docker-ce package (Ubuntu 16.04)
-#
-apt-get update
-sudo apt-get remove -y docker \
-                       docker-engine \
-                       docker.io
-sudo apt-get install -y apt-transport-https \
-                        ca-certificates \
-                        curl \
-                        software-properties-common
-cd /root
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-   $(lsb_release -cs) \
-   stable"
-sudo apt-get update
-sudo apt-get install docker-ce -y
 
 #
 # Pull docker images and run the docker container
