@@ -1,7 +1,7 @@
 #!/bin/bash
 set -u
 
-DOCKER_REPO='dalijolijo'
+DOCKER_REPO="dalijolijo"
 
 #
 # Set bitcloud user pwd and masternode genkey
