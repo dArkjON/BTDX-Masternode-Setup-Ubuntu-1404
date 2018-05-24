@@ -16,7 +16,7 @@ fi
 
 if [[ $REUSE =~ "N" ]] || [[ $REUSE =~ "n" ]]; then
         echo -n "Enter new password for [bitcloud] user and Hit [ENTER]: "
-        read BSDPWD
+        read BTDXPWD
         echo -n "Enter your bitcloud masternode genkey respond and Hit [ENTER]: "
         read MN_KEY
 else
