@@ -2,14 +2,28 @@
 set -u
 
 DOCKER_REPO="dalijolijo"
+CONFIG="/home/bitcloud/.bitcloud/bitcloud.conf"
 
 #
-# Set bitcloud user pwd and masternode genkey
+# Check if bitcloud.conf already exist. Set bitcloud user pwd and masternode genkey
 #
-echo -n "Enter new password for [bitcloud] user and Hit [ENTER]: "
-read BTDXPWD
-echo -n "Enter your masternode genkey respond and Hit [ENTER]: "
-read MN_KEY
+REUSE="No"
+if [ -f "$CONFIG" ]
+then
+        echo -n "Found $CONFIG on your system. Do you want to re-use this existing config file? Enter Yes or No and Hit [ENTER]: "
+        read REUSE
+fi
+
+if [[ $REUSE =~ "N" ]] || [[ $REUSE =~ "n" ]]; then
+        echo -n "Enter new password for [bitcloud] user and Hit [ENTER]: "
+        read BSDPWD
+        echo -n "Enter your bitcloud masternode genkey respond and Hit [ENTER]: "
+        read MN_KEY
+else
+        source $CONFIG
+        BSDPWD=$(echo $rpcpassword)
+        MN_KEY=$(echo $masternodeprivkey)
+fi
 
 #
 # Check distro version for further configurations (TODO)
@@ -76,5 +90,6 @@ fi
 #
 # Pull docker images and run the docker container
 #
+docker rm btdx-masternode
 docker pull ${DOCKER_REPO}/btdx-masternode
 docker run -p 8329:8329 -p 51473:51473 --name btdx-masternode -e BTDXPWD="${BTDXPWD}" -e MN_KEY="${MN_KEY}" -v /home/bitcloud:/home/bitcloud:rw -d ${DOCKER_REPO}/btdx-masternode
