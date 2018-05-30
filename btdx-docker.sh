@@ -69,6 +69,7 @@ if [[ $OS =~ "Ubuntu" ]] || [[ $OS =~ "ubuntu" ]]; then
     ufw limit 22/tcp
     ufw allow 8329/tcp
     ufw allow 8330/tcp
+    ufw allow 9051/tcp
     # if other services run on other ports, they will be blocked!
     #ufw default deny incoming 
     ufw default allow outgoing 
@@ -83,7 +84,7 @@ if [[ $OS =~ "Ubuntu" ]] || [[ $OS =~ "ubuntu" ]]; then
                            software-properties-common
 else
     echo "Automated firewall setup for $OS ($VER) not supported!"
-    echo "Please open firewall ports 22, 8329 and 8330 manually."  
+    echo "Please open firewall ports 22, 8329, 8330 and 9051 manually."  
     exit
 fi
 
@@ -92,4 +93,4 @@ fi
 #
 docker rm btdx-masternode
 docker pull ${DOCKER_REPO}/btdx-masternode
-docker run -p 8329:8329 -p 8330:8330 --name btdx-masternode -e BTDXPWD="${BTDXPWD}" -e MN_KEY="${MN_KEY}" -v /home/bitcloud:/home/bitcloud:rw -d ${DOCKER_REPO}/btdx-masternode
+docker run -p 8329:8329 -p 8330:8330 -p 9051:9051--name btdx-masternode -e BTDXPWD="${BTDXPWD}" -e MN_KEY="${MN_KEY}" -v /home/bitcloud:/home/bitcloud:rw -d ${DOCKER_REPO}/btdx-masternode
