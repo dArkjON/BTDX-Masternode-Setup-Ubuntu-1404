@@ -16,8 +16,8 @@ LABEL version="0.2"
 # Make ports available to the world outside this container
 # DefaultPort = 8329
 # RPCPort = 8330
-# TorPort = 9051
-EXPOSE 8329 8330 9051
+# TorPort = 9050 (see https://github.com/LIMXTEC/Bitcloud/blob/master/doc/tor.md)
+EXPOSE 8329 8330 9050
 
 USER root
 
