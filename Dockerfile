@@ -15,8 +15,9 @@ LABEL version="0.2"
 
 # Make ports available to the world outside this container
 # DefaultPort = 8329
-# RPCPort = 8330 
-EXPOSE 8329 8330
+# RPCPort = 8330
+# TorPort = 9051
+EXPOSE 8329 8330 9051
 
 USER root
 
