@@ -14,7 +14,9 @@ LABEL maintainer="Jon D. (dArkjON), David B. (dalijolijo)"
 LABEL version="0.2"
 
 # Make ports available to the world outside this container
-EXPOSE 8329 51473
+# DefaultPort = 8329
+# RPCPort = 8330 
+EXPOSE 8329 8330
 
 USER root
 
