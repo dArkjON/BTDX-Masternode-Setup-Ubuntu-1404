@@ -7,7 +7,7 @@ ufw logging on
 ufw allow 22/tcp
 ufw limit 22/tcp
 ufw allow 8329/tcp
-ufw allow 51473/tcp
+ufw allow 8330/tcp
 ufw default deny incoming 
 ufw default allow outgoing 
 yes | ufw enable
@@ -42,7 +42,7 @@ docker exec -it btdx-masternode bash
 
 ## Debbuging within a container during run (skip start.sh execution)
 ```
-docker run -p 8329:8329 -p 51473:51473 --name btdx-masternode -e BTDXPWD='NEW_BTDX_PWD' -e MN_KEY='YOUR_MN_KEY' -v /home/bitcloud:/home/bitcloud:rw --entrypoint bash <repository>/btdx-masternode
+docker run -p 8329:8329 -p 8330:8330 --name btdx-masternode -e BTDXPWD='NEW_BTDX_PWD' -e MN_KEY='YOUR_MN_KEY' -v /home/bitcloud:/home/bitcloud:rw --entrypoint bash <repository>/btdx-masternode
 ```
 
 ## Stop docker container
