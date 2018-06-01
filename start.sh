@@ -12,7 +12,7 @@ echo bitcloud:${BTDXPWD} | chpasswd
 # Downloading bitcloud.conf
 #
 cd /tmp/
-wget https://raw.githubusercontent.com/dalijolijo/BTDX-Masternode-Setup/master/bitcloud.conf
+wget https://raw.githubusercontent.com/dalijolijo/BTDX-Masternode-Setup/master/bitcloud.conf -O /tmp/bitcloud.conf
 chown bitcloud:bitcloud /tmp/bitcloud.conf
 
 #
