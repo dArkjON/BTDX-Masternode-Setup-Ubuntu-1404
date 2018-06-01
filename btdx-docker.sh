@@ -93,4 +93,4 @@ fi
 #
 docker rm btdx-masternode
 docker pull ${DOCKER_REPO}/btdx-masternode
-docker run -p 8329:8329 -p 8330:8330 -p 9050:9050--name btdx-masternode -e BTDXPWD="${BTDXPWD}" -e MN_KEY="${MN_KEY}" -v /home/bitcloud:/home/bitcloud:rw -d ${DOCKER_REPO}/btdx-masternode
+docker run -p 8329:8329 -p 8330:8330 -p 9050:9050 --name btdx-masternode -e BTDXPWD="${BTDXPWD}" -e MN_KEY="${MN_KEY}" -v /home/bitcloud:/home/bitcloud:rw -d ${DOCKER_REPO}/btdx-masternode
