@@ -21,7 +21,7 @@ if [[ $REUSE =~ "N" ]] || [[ $REUSE =~ "n" ]]; then
         read MN_KEY
 else
         source $CONFIG
-        BSDPWD=$(echo $rpcpassword)
+        BTDXPWD=$(echo $rpcpassword)
         MN_KEY=$(echo $masternodeprivkey)
 fi
 
