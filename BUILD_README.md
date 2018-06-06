@@ -31,7 +31,7 @@ docker build [--build-arg BTDXPWD='<bitcloud user pwd>'] -t btdx-masternode .
 
 ## Push docker image to hub.docker
 ```
-docker tag btdx-masternode <repository>/btdx-masternode
+docker tag btdx-masternode limxtec/btdx-masternode
 docker login -u <repository> -p"<PWD>"
-docker push <repository>/btdx-masternode:<tag>
+docker push limxtec/btdx-masternode:<tag>
 ```
