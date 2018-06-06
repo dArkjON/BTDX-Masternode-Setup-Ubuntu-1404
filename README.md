@@ -46,5 +46,5 @@ chmod +x btdx-docker.sh
 ```
 
 ### For more details to docker related stuff have a look at:
-* BTDX-Masternode-Setup-Ubuntu-1404/BUILD_README.md
-* BTDX-Masternode-Setup-Ubuntu-1404/RUN_README.md
+* BTDX-Masternode-Setup/BUILD_README.md
+* BTDX-Masternode-Setup/RUN_README.md
