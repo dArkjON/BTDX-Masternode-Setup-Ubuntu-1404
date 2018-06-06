@@ -40,7 +40,7 @@ sudo curl -sSL https://get.docker.com | sh
 Login as root, then do:
 
 ```
-wget https://raw.githubusercontent.com/dalijolijo/BTDX-Masternode-Setup-Ubuntu-1404/master/btdx-docker.sh
+wget https://raw.githubusercontent.com/LIMXTEC/BTDX-Masternode-Setup-Ubuntu-1404/master/btdx-docker.sh
 chmod +x btdx-docker.sh
 ./btdx-docker.sh
 ```
