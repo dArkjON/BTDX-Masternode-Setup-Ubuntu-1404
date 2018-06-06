@@ -42,7 +42,7 @@ cd
 git clone https://github.com/LIMXTEC/Bitcloud.git
 cd Bitcloud
 ./autogen.sh
-./configure
+./configure --disable-dependency-tracking --enable-tests=no --without-gui
 make
 
 cd
