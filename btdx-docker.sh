@@ -59,7 +59,7 @@ else
 fi
 
 # Configurations for Ubuntu
-if [[ $OS =~ "Ubuntu" ]] || [[ $OS =~ "ubuntu" ]]; then
+if [[ $OS =~ "Ubuntu" ]] || [[ $OS =~ "ubuntu" ]] || [[ $OS =~ "Mint" ]]; then
     echo "Configuration for $OS ($VER)..."
  
     # Firewall settings (for Ubuntu)
