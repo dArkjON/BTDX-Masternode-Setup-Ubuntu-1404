@@ -3,6 +3,9 @@ set -u
 
 DOCKER_REPO="dalijolijo"
 CONFIG="/home/bitcloud/.bitcloud/bitcloud.conf"
+DEFAULT_PORT="8329"
+RPC_PORT="8330"
+TOR_PORT="9050"
 
 #
 # Check if bitcloud.conf already exist. Set bitcloud user pwd and masternode genkey
@@ -58,33 +61,57 @@ else
     VER=$(uname -r)
 fi
 
-# Configurations for Ubuntu
-if [[ $OS =~ "Ubuntu" ]] || [[ $OS =~ "ubuntu" ]]; then
+#
+# Configuration for Ubuntu/Debian/Mint
+#
+if [[ $OS =~ "Ubuntu" ]] || [[ $OS =~ "ubuntu" ]] || [[ $OS =~ "Debian" ]] || [[ $OS =~ "debian" ]] || [[ $OS =~ "Mint" ]] || [[ $OS =~ "mint" ]]; then
     echo "Configuration for $OS ($VER)..."
- 
-    # Firewall settings (for Ubuntu)
-    echo "Setup firewall..."
-    ufw logging on
-    ufw allow 22/tcp
-    ufw limit 22/tcp
-    ufw allow 8329/tcp
-    ufw allow 8330/tcp
-    ufw allow 9050/tcp
-    # if other services run on other ports, they will be blocked!
-    #ufw default deny incoming 
-    ufw default allow outgoing 
-    yes | ufw enable
+    
+    #Check if firewall ufw is installed
+    which ufw >/dev/null
+    if [ $? -ne 0 ];then
+        echo "Missing firewall (ufw) on your system."
+        echo "Automated firewall setup will open the following ports: 22, ${DEFAULT_PORT}, ${RPC_PORT} and ${TOR_PORT}"
+        echo -n "Do you want to install firewall (ufw) and execute automated firewall setup? Enter Yes or No and Hit [ENTER]: "
+        read FIRECONF
+    else
+        echo "Found firewall ufw on your system. Automated firewall setup will open the following ports: 22, ${DEFAULT_PORT}, ${RPC_PORT} and ${TOR_PORT}"
+        echo -n "Do you want to start automated firewall setup? Enter Yes or No and Hit [ENTER]: "
+        read FIRECONF
 
-    # Installation further package (Ubuntu 16.04)
+        if [[ $FIRECONF =~ "Y" ]] || [[ $FIRECONF =~ "y" ]]; then
+           #Installation of ufw, if not installed yet
+           which ufw >/dev/null
+           if [ $? -ne 0 ];then
+               apt-get update
+               sudo apt-get install -y ufw
+           fi
+           
+           # Firewall settings
+           echo "Setup firewall..."
+           ufw logging on
+           ufw allow 22/tcp
+           ufw limit 22/tcp
+           ufw allow ${DEFAULT_PORT}/tcp
+           ufw allow ${RPC_PORT}/tcp
+           ufw allow ${TOR_PORT}/tcp
+           # if other services run on other ports, they will be blocked!
+           #ufw default deny incoming
+           ufw default allow outgoing
+           yes | ufw enable
+        fi
+    fi
+
+    # Installation further package
     echo "Install further packages..."
     apt-get update
     sudo apt-get install -y apt-transport-https \
-                           ca-certificates \
-                           curl \
-                           software-properties-common
+                            ca-certificates \
+                            curl \
+                            software-properties-common
 else
     echo "Automated firewall setup for $OS ($VER) not supported!"
-    echo "Please open firewall ports 22, 8329, 8330 and 9050 manually."  
+    echo "Please open firewall ports 22, ${DEFAULT_PORT}, ${RPC_PORT} and ${TOR_PORT} manually."
     exit
 fi
 
@@ -93,4 +120,4 @@ fi
 #
 docker rm btdx-masternode
 docker pull ${DOCKER_REPO}/btdx-masternode
-docker run -p 8329:8329 -p 8330:8330 -p 9050:9050 --name btdx-masternode -e BTDXPWD="${BTDXPWD}" -e MN_KEY="${MN_KEY}" -v /home/bitcloud:/home/bitcloud:rw -d ${DOCKER_REPO}/btdx-masternode
+docker run -p ${DEFAULT_PORT}:${DEFAULT_PORT} -p ${RPC_PORT}:${RPC_PORT} -p ${TOR_PORT}:${TOR_PORT} --name btdx-masternode -e BTDXPWD="${BTDXPWD}" -e MN_KEY="${MN_KEY}" -v /home/bitcloud:/home/bitcloud:rw -d ${DOCKER_REPO}/btdx-masternode
