@@ -26,7 +26,7 @@ fi
 if [[ $REUSE =~ "N" ]] || [[ $REUSE =~ "n" ]]; then
         printf "\nEnter new password for [bitcloud] user and Hit [ENTER]: "
         read BTDXPWD
-        printf "\nEnter your bitcloud masternode genkey respond and Hit [ENTER]: "
+        printf "Enter your bitcloud masternode genkey respond and Hit [ENTER]: "
         read MN_KEY
 else
         source $CONFIG
