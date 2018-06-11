@@ -71,6 +71,109 @@ else
 fi
 printf "Found installed $OS ($VER)\n"
 
+# Configuration for Fedora
+if [[ $OS =~ "Fedora" ]] || [[ $OS =~ "fedora" ]] || [[ $OS =~ "CentOS" ]] || [[ $OS =~ "centos" ]]; then
+    FIREWALLD=0
+
+    # Check if firewalld is installed
+    which firewalld >/dev/null
+    if [ $? -eq 0 ]; then
+        printf "Found firewall 'firewalld' on your system.\n"
+        printf "Automated firewall setup will open the following ports: 22, ${DEFAULT_PORT}, ${RPC_PORT} and ${TOR_PORT}\n"
+        printf "\nDo you want to start automated firewall setup?\n"
+        printf "Enter [Y]es or [N]o and Hit [ENTER]: "
+        read FIRECONF
+        
+        if [[ $FIRECONF =~ "Y" ]] || [[ $FIRECONF =~ "y" ]]; then
+
+            # Firewall settings
+            printf "\nSetup firewall...\n"
+            firewall-cmd --permanent --zone=public --add-port=22/tcp
+            firewall-cmd --permanent --zone=public --add-port=${DEFAULT_PORT}/tcp
+            firewall-cmd --permanent --zone=public --add-port=${RPC_PORT}/tcp
+            firewall-cmd --permanent --zone=public --add-port=${TOR_PORT}/tcp
+            firewall-cmd --reload
+	fi
+        FIREWALLD=1
+    fi
+
+    if [ $FIREWALLD -ne 1 ]; then
+    
+        # Check if ufw is installed
+        which ufw >/dev/null
+        if [ $? -ne 0 ]; then
+            if [[ $OS =~ "CentOS" ]] || [[ $OS =~ "centos" ]]; then
+                printf "Missing firewall (firewalld) on your system.\n"
+                printf "Automated firewall setup will open the following ports: 22, ${DEFAULT_PORT}, ${RPC_PORT} and ${TOR_PORT}\n"
+                printf "\nDo you want to install firewall (firewalld) and execute automated firewall setup?\n"
+                printf "Enter [Y]es or [N]o and Hit [ENTER]: "
+                read FIRECONF
+                
+                if [[ $FIRECONF =~ "Y" ]] || [[ $FIRECONF =~ "y" ]]; then
+                    #Installation of ufw, if not installed yet
+                    which ufw >/dev/null
+                    if [ $? -ne 0 ];then
+                        sudo yum install -y firewalld firewall-config
+                        systemctl start firewalld.service
+                        systemctl enable firewalld.service
+                    fi
+
+                    # Firewall settings
+                    printf "\nSetup firewall...\n"
+                    firewall-cmd --permanent --zone=public --add-port=22/tcp
+                    firewall-cmd --permanent --zone=public --add-port=${DEFAULT_PORT}/tcp
+                    firewall-cmd --permanent --zone=public --add-port=${RPC_PORT}/tcp
+                    firewall-cmd --permanent --zone=public --add-port=${TOR_PORT}/tcp
+                    firewall-cmd --reload
+                fi
+            else
+                printf "Missing firewall (ufw) on your system.\n"
+                printf "Automated firewall setup will open the following ports: 22, ${DEFAULT_PORT}, ${RPC_PORT} and ${TOR_PORT}\n"
+                printf "\nDo you want to install firewall (ufw) and execute automated firewall setup?\n"
+                printf "Enter [Y]es or [N]o and Hit [ENTER]: "
+                read FIRECONF
+            fi
+        else
+            printf "Found firewall 'ufw' on your system.\n"
+            printf "Automated firewall setup will open the following ports: 22, ${DEFAULT_PORT}, ${RPC_PORT} and ${TOR_PORT}\n"
+            printf "\nDo you want to start automated firewall setup?\n"
+            printf "Enter [Y]es or [N]o and Hit [ENTER]: "
+            read FIRECONF
+        fi
+
+        if [[ $FIRECONF =~ "Y" ]] || [[ $FIRECONF =~ "y" ]]; then
+            #Installation of ufw, if not installed yet
+            which ufw >/dev/null
+            if [ $? -ne 0 ];then
+               sudo yum install -y ufw
+            fi
+
+            # Firewall settings
+            printf "\nSetup firewall...\n"
+            ufw logging on
+            ufw allow 22/tcp
+            ufw limit 22/tcp
+            ufw allow ${DEFAULT_PORT}/tcp
+            ufw allow ${RPC_PORT}/tcp
+            ufw allow ${TOR_PORT}/tcp
+            # if other services run on other ports, they will be blocked!
+            #ufw default deny incoming
+            ufw default allow outgoing
+            yes | ufw enable
+        fi
+    fi
+
+    # Installation further package
+    printf "\nPackages Setup"
+    printf "\n--------------\n"
+    printf "Install further packages...\n"
+    sudo yum install -y ca-certificates \
+                        curl
+
+    # Start and activate docker
+    systemctl start docker.service
+    systemctl enable docker.service
+
 #
 # Configuration for Ubuntu/Debian/Mint
 #
