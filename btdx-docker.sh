@@ -1,7 +1,7 @@
 #!/bin/bash
 set -u
 
-DOCKER_REPO="dalijolijo"
+DOCKER_REPO="limxtec"
 CONFIG="/home/bitcloud/.bitcloud/bitcloud.conf"
 CONTAINER_NAME="btdx-masternode"
 DEFAULT_PORT="8329"
