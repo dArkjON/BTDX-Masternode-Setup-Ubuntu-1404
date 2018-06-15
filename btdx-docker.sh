@@ -6,7 +6,9 @@ CONFIG="/home/bitcloud/.bitcloud/bitcloud.conf"
 CONTAINER_NAME="btdx-masternode"
 DEFAULT_PORT="8329"
 RPC_PORT="8330"
-TOR_PORT="9050"
+TOR_PORT="9050
+WEB="bit-cloud.info/files" # without "https://" and without the last "/" (only HTTPS accepted)
+BOOTSTRAP="bootstrap.tar.gz"
 
 #
 # Check if bitcloud.conf already exist. Set bitcloud user pwd and masternode genkey
@@ -258,7 +260,7 @@ if [ $? -eq 0 ];then
 fi
 docker rm ${CONTAINER_NAME} >/dev/null
 docker pull ${DOCKER_REPO}/btdx-masternode
-docker run -p ${DEFAULT_PORT}:${DEFAULT_PORT} -p ${RPC_PORT}:${RPC_PORT} -p ${TOR_PORT}:${TOR_PORT} --name ${CONTAINER_NAME} -e BTDXPWD="${BTDXPWD}" -e MN_KEY="${MN_KEY}" -v /home/bitcloud:/home/bitcloud:rw -d ${DOCKER_REPO}/btdx-masternode
+docker run -p ${DEFAULT_PORT}:${DEFAULT_PORT} -p ${RPC_PORT}:${RPC_PORT} -p ${TOR_PORT}:${TOR_PORT} --name ${CONTAINER_NAME} -e BTDXPWD="${BTDXPWD}" -e MN_KEY="${MN_KEY}" -e WEB="${WEB}" -e BOOTSTRAP="${BOOTSTRAP}" -v /home/bitcloud:/home/bitcloud:rw -d ${DOCKER_REPO}/btdx-masternode
 
 #
 # Show result and give user instructions
