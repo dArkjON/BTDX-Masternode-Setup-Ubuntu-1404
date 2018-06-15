@@ -31,8 +31,8 @@ sed -i "s/^\(masternodeprivkey=\).*/masternodeprivkey=${MN_KEY}/" /home/bitcloud
 #
 printf "** Downloading bootstrap file ***\n"
 cd /home/bitcloud/.bitcloud/
-if [ ! -d /home/bitcloud/.bitcloud/blocks ] && [ "$(curl -Is http://51.15.68.41/${BOOTSTRAP} | head -n 1 | tr -d '\r\n')" = "HTTP/1.1 200 OK" ] ; then \
-        sudo -u bitcloud wget http://51.15.68.41/${BOOTSTRAP}; \
+if [ ! -d /home/bitcloud/.bitcloud/blocks ] && [ "$(curl -Is https://bit-cloud.info/files/${BOOTSTRAP} | head -n 1 | tr -d '\r\n')" = "HTTP/1.1 200 OK" ] ; then \
+        sudo -u bitcloud wget https://bit-cloud.info/files/${BOOTSTRAP}; \
         sudo -u bitcloud tar -xvzf ${BOOTSTRAP}; \
         sudo -u bitcloud rm ${BOOTSTRAP}; \
 fi
