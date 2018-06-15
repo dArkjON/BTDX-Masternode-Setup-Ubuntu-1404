@@ -1,8 +1,6 @@
 #!/bin/bash
 set -u
 
-BOOTSTRAP='bootstrap.tar.gz'
-
 #
 # Set passwd of bitcloud user
 #
@@ -31,8 +29,8 @@ sed -i "s/^\(masternodeprivkey=\).*/masternodeprivkey=${MN_KEY}/" /home/bitcloud
 #
 printf "** Downloading bootstrap file ***\n"
 cd /home/bitcloud/.bitcloud/
-if [ ! -d /home/bitcloud/.bitcloud/blocks ] && [ "$(curl -Is https://bit-cloud.info/${BOOTSTRAP} | head -n 1 | tr -d '\r\n')" = "HTTP/1.1 200 OK" ] ; then \
-        sudo -u bitcloud wget https://bit-cloud.info/${BOOTSTRAP}; \
+if [ ! -d /home/bitcloud/.bitcloud/blocks ] && [ "$(curl -Is https://${WEB}/${BOOTSTRAP} | head -n 1 | tr -d '\r\n')" = "HTTP/1.1 200 OK" ] ; then \
+        sudo -u bitcloud wget https://${WEB}/${BOOTSTRAP}; \
         sudo -u bitcloud tar -xvzf ${BOOTSTRAP}; \
         sudo -u bitcloud rm ${BOOTSTRAP}; \
 fi
