@@ -6,7 +6,7 @@ CONFIG="/home/bitcloud/.bitcloud/bitcloud.conf"
 CONTAINER_NAME="btdx-masternode"
 DEFAULT_PORT="8329"
 RPC_PORT="8330"
-TOR_PORT="9050
+TOR_PORT="9050"
 WEB="bit-cloud.info/files" # without "https://" and without the last "/" (only HTTPS accepted)
 BOOTSTRAP="bootstrap.tar.gz"
 
