@@ -15,7 +15,7 @@ BOOTSTRAP="bootstrap.tar.gz"
 #
 clear
 REUSE="No"
-printf "\nDOCKER SETUP FOR BITCLOUD (BTDX) RPC SERVER\n"
+printf "\nDOCKER SETUP FOR BITCLOUD (BTDX) MASTERNODE SERVER\n"
 printf "\nSetup Config file"
 printf "\n-----------------"
 if [ -f "$CONFIG" ]
