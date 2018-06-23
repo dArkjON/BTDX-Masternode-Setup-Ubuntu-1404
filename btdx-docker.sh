@@ -264,7 +264,7 @@ if [ $? -eq 0 ];then
     else
 	printf "\nDocker Setup Result"
         printf "\n----------------------\n"
-        printf "${RED}Canceled the Docker Setup without starting ${BTDX_COL}BitCloud${NO_COL} Masternode Docker Container.${NO_COL}\n\n"
+        printf "${RED}Canceled the Docker Setup without starting ${BTDX_COL}BitCloud${RED} Masternode Docker Container.${NO_COL}\n\n"
 	exit 1
     fi
 fi
@@ -280,7 +280,7 @@ printf "\nDocker Setup Result"
 printf "\n----------------------\n"
 sudo docker ps | grep ${CONTAINER_NAME} >/dev/null
 if [ $? -ne 0 ];then
-    printf "Sorry! Something went wrong. :(\n"
+    printf "${RED}Sorry! Something went wrong. :(${NO_COL}\n"
 else
     printf "${GREEN}GREAT! Your ${BTDX_COL}BitCloud${GREEN} Masternode Docker Container is running now! :)${NO_COL}\n"
     printf "\nShow your running docker container \'${CONTAINER_NAME}\' with 'docker ps'\n"
