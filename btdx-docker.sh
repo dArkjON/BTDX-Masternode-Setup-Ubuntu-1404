@@ -19,7 +19,7 @@ NO_COL='\033[0m'
 BTDX_COL='\033[0;36m'
 
 #
-# Check if bitcloud.conf already exist. Set bitcloud user pwd and masternode genkey
+# Check if bitcloud.conf already exist. Set masternode genkey
 #
 clear
 REUSE="No"
