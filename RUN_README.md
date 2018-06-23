@@ -21,7 +21,7 @@ docker pull limxtec/btdx-masternode
 
 ## Run docker container
 ```
-docker run -p 8329:8329 -p 8330:8330 -p 9050:9050 --name btdx-masternode -e BTDXPWD='NEW_BTDX_PWD' -e MN_KEY='YOUR_MN_KEY' -v /home/bitcloud:/home/bitcloud:rw -d limxtec/btdx-masternode
+docker run -p 8329:8329 -p 8330:8330 -p 9050:9050 --name btdx-masternode -e BTDX_IP='BTDX_IP' -e MN_KEY='YOUR_MN_KEY' -v /home/bitcloud:/home/bitcloud:rw -d limxtec/btdx-masternode
 docker ps
 ```
 
@@ -43,7 +43,7 @@ docker exec -it btdx-masternode bash
 
 ## Debbuging within a container during run (skip start.sh execution)
 ```
-docker run -p 8329:8329 -p 8330:8330 -p 9050:9050 --name btdx-masternode -e BTDXPWD='NEW_BTDX_PWD' -e MN_KEY='YOUR_MN_KEY' -v /home/bitcloud:/home/bitcloud:rw --entrypoint bash limxtec/btdx-masternode
+docker run -p 8329:8329 -p 8330:8330 -p 9050:9050 --name btdx-masternode -e BTDX_IP='BTDX_IP' -e MN_KEY='YOUR_MN_KEY' -v /home/bitcloud:/home/bitcloud:rw --entrypoint bash limxtec/btdx-masternode
 ```
 
 ## Stop docker container
