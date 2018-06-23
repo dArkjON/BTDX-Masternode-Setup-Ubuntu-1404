@@ -2,11 +2,6 @@
 set -u
 
 #
-# Set passwd of bitcloud user
-#
-echo bitcloud:${BTDXPWD} | chpasswd
-
-#
 # Downloading bitcloud.conf
 #
 cd /tmp/
