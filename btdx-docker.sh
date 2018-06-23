@@ -11,11 +11,19 @@ WEB="bit-cloud.info/files" # without "https://" and without the last "/" (only H
 BOOTSTRAP="bootstrap.tar.gz"
 
 #
+# Color definitions
+#
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NO_COL='\033[0m'
+BTDX_COL='\033[0;36m'
+
+#
 # Check if bitcloud.conf already exist. Set bitcloud user pwd and masternode genkey
 #
 clear
 REUSE="No"
-printf "\nDOCKER SETUP FOR BITCLOUD (BTDX) MASTERNODE SERVER\n"
+printf "\nDOCKER SETUP FOR ${BTDX_COL}BITCLOUD (BTDX)${NO_COL} MASTERNODE SERVER\n"
 printf "\nSetup Config file"
 printf "\n-----------------"
 if [ -f "$CONFIG" ]
@@ -27,13 +35,15 @@ then
 fi
 
 if [[ $REUSE =~ "N" ]] || [[ $REUSE =~ "n" ]]; then
-        printf "\nEnter new password for [bitcloud] user and Hit [ENTER]: "
-        read BTDXPWD
-        printf "Enter your BitCloud Masternode genkey respond and Hit [ENTER]: "
+        printf "\nFound the following IP-addresses on this Server:\n"
+        hostname -I
+	printf "\nEnter the IP-address of your ${BTDX_COL}BitCloud${NO_COL} Masternode VPS and Hit [ENTER]: "
+        read BTDX_IP
+        printf "Enter your ${BTDX_COL}BitCloud${NO_COL} Masternode genkey respond and Hit [ENTER]: "
         read MN_KEY
 else
         source $CONFIG
-        BTDXPWD=$(echo $rpcpassword)
+        BTDX_IP=$(echo $externalip)
         MN_KEY=$(echo $masternodeprivkey)
 fi
 
@@ -111,7 +121,7 @@ if [[ $OS =~ "Fedora" ]] || [[ $OS =~ "fedora" ]] || [[ $OS =~ "CentOS" ]] || [[
         which ufw >/dev/null
         if [ $? -ne 0 ]; then
             if [[ $OS =~ "CentOS" ]] || [[ $OS =~ "centos" ]]; then
-                printf "Missing firewall (firewalld) on your system.\n"
+                printf "${RED}Missing firewall (firewalld) on your system.${NO_COL}\n"
                 printf "Automated firewall setup will open the following ports: 22, ${DEFAULT_PORT}, ${RPC_PORT} and ${TOR_PORT}\n"
                 printf "\nDo you want to install firewall (firewalld) and execute automated firewall setup?\n"
                 printf "Enter [Y]es or [N]o and Hit [ENTER]: "
@@ -135,7 +145,7 @@ if [[ $OS =~ "Fedora" ]] || [[ $OS =~ "fedora" ]] || [[ $OS =~ "CentOS" ]] || [[
                     firewall-cmd --reload
                 fi
             else
-                printf "Missing firewall (ufw) on your system.\n"
+                printf "${RED}Missing firewall (ufw) on your system.${NO_COL}\n"
                 printf "Automated firewall setup will open the following ports: 22, ${DEFAULT_PORT}, ${RPC_PORT} and ${TOR_PORT}\n"
                 printf "\nDo you want to install firewall (ufw) and execute automated firewall setup?\n"
                 printf "Enter [Y]es or [N]o and Hit [ENTER]: "
@@ -188,7 +198,7 @@ elif [[ $OS =~ "Ubuntu" ]] || [[ $OS =~ "ubuntu" ]] || [[ $OS =~ "Debian" ]] || 
     # Check if firewall ufw is installed
     which ufw >/dev/null
     if [ $? -ne 0 ];then
-        printf "Missing firewall (ufw) on your system.\n"
+        printf "${RED}Missing firewall (ufw) on your system.${NO_COL}\n"
         printf "Automated firewall setup will open the following ports: 22, ${DEFAULT_PORT}, ${RPC_PORT} and ${TOR_PORT}\n"
         printf "\nDo you want to install firewall (ufw) and execute automated firewall setup?\n"
         printf "Enter [Y]es or [N]o and Hit [ENTER]: "
@@ -244,7 +254,7 @@ printf "\nStart Docker container"
 printf "\n----------------------\n"
 sudo docker ps | grep ${CONTAINER_NAME} >/dev/null
 if [ $? -eq 0 ];then
-    printf "Conflict! The container name \'${CONTAINER_NAME}\' is already in use.\n"
+    printf "${RED}Conflict! The container name \'${CONTAINER_NAME}\' is already in use.${NO_COL}\n"
     printf "\nDo you want to stop the running container to start the new one?\n"
     printf "Enter [Y]es or [N]o and Hit [ENTER]: "
     read STOP
@@ -254,13 +264,13 @@ if [ $? -eq 0 ];then
     else
 	printf "\nDocker Setup Result"
         printf "\n----------------------\n"
-        printf "Canceled the Docker Setup without starting BitCloud Masternode Docker Container.\n\n"
+        printf "${RED}Canceled the Docker Setup without starting ${BTDX_COL}BitCloud${NO_COL} Masternode Docker Container.${NO_COL}\n\n"
 	exit 1
     fi
 fi
 docker rm ${CONTAINER_NAME} >/dev/null
 docker pull ${DOCKER_REPO}/btdx-masternode
-docker run -p ${DEFAULT_PORT}:${DEFAULT_PORT} -p ${RPC_PORT}:${RPC_PORT} -p ${TOR_PORT}:${TOR_PORT} --name ${CONTAINER_NAME} -e BTDXPWD="${BTDXPWD}" -e MN_KEY="${MN_KEY}" -e WEB="${WEB}" -e BOOTSTRAP="${BOOTSTRAP}" -v /home/bitcloud:/home/bitcloud:rw -d ${DOCKER_REPO}/btdx-masternode
+docker run -p ${DEFAULT_PORT}:${DEFAULT_PORT} -p ${RPC_PORT}:${RPC_PORT} -p ${TOR_PORT}:${TOR_PORT} --name ${CONTAINER_NAME} -e BTDX_IP="${BTDX_IP}" -e MN_KEY="${MN_KEY}" -e WEB="${WEB}" -e BOOTSTRAP="${BOOTSTRAP}" -v /home/bitcloud:/home/bitcloud:rw -d ${DOCKER_REPO}/btdx-masternode
 
 #
 # Show result and give user instructions
@@ -272,9 +282,9 @@ sudo docker ps | grep ${CONTAINER_NAME} >/dev/null
 if [ $? -ne 0 ];then
     printf "Sorry! Something went wrong. :(\n"
 else
-    printf "GREAT! Your BitCloud Masternode Docker Container is running now! :)\n"
+    printf "${GREEN}GREAT! Your ${BTDX_COL}BitCloud${GREEN} Masternode Docker Container is running now! :)${NO_COL}\n"
     printf "\nShow your running docker container \'${CONTAINER_NAME}\' with 'docker ps'\n"
     sudo docker ps | grep ${CONTAINER_NAME}
     printf "\nJump inside the docker container with 'docker exec -it ${CONTAINER_NAME} bash'\n"
-    printf "HAVE FUN!\n\n"
+    printf "${GREEN}HAVE FUN!${NO_COL}\n\n"
 fi
