@@ -18,6 +18,7 @@ sudo -u bitcloud cp /tmp/bitcloud.conf /home/bitcloud/.bitcloud/
 sed -i "s|^\(rpcuser=\).*|rpcuser=btdxmasternode$(openssl rand -base64 32)|g" /home/bitcloud/.bitcloud/bitcloud.conf
 sed -i "s|^\(rpcpassword=\).*|rpcpassword=$(openssl rand -base64 32)|g" /home/bitcloud/.bitcloud/bitcloud.conf
 sed -i "s|^\(masternodeprivkey=\).*|masternodeprivkey=${MN_KEY}|g" /home/bitcloud/.bitcloud/bitcloud.conf
+sed -i "s|^\(externalip=\).*|externalip=${GRVIP}|g" /home/bitcloud/.bitcloud/bitcloud.conf 
 
 #
 # Downloading bootstrap file
