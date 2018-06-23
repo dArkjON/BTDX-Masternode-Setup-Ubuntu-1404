@@ -26,7 +26,7 @@ swapon /swapfile
 
 ## Build docker image
 ```
-docker build [--build-arg BTDXPWD='<bitcloud user pwd>'] -t btdx-masternode .
+docker build -t btdx-masternode .
 ```
 
 ## Push docker image to hub.docker
