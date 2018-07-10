@@ -9,6 +9,7 @@ RPC_PORT="8330"
 TOR_PORT="9050"
 WEB="bit-cloud.info/files" # without "https://" and without the last "/" (only HTTPS accepted)
 BOOTSTRAP="bootstrap.tar.gz"
+IP=$(curl -s https://bit-cloud.info/showip.php)
 
 #
 # Color definitions
@@ -35,15 +36,16 @@ then
 fi
 
 if [[ $REUSE =~ "N" ]] || [[ $REUSE =~ "n" ]]; then
-        printf "\nFound the following IP-addresses on this Server:\n"
-        hostname -I
-	printf "\nEnter the IP-address of your ${BTDX_COL}BitCloud${NO_COL} Masternode VPS and Hit [ENTER]: "
-        read BTDX_IP
+	read -e -p "Is this IP-address $IP your VPS IP-address? [Y/n]: " ipaddress
+	if [[ ("$ipaddress" == "n" || "$ipaddress" == "N") ]]; then
+		printf "\nEnter the IP-address of your ${BTDX_COL}BitCloud${NO_COL} Masternode VPS and Hit [ENTER]: "
+		read BTDX_IP
+	fi
         printf "Enter your ${BTDX_COL}BitCloud${NO_COL} Masternode genkey respond and Hit [ENTER]: "
         read MN_KEY
 else
-        source $CONFIG
-        BTDX_IP=$(echo $externalip)
+	source $CONFIG
+        BTDX_IP=$(echo $IP)
         MN_KEY=$(echo $masternodeprivkey)
 fi
 
