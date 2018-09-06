@@ -127,6 +127,7 @@ else
     printf "${GREEN}GREAT! Your ${BTDX_COL}BitCloud${GREEN} (v${IMAGE_TAG}) Masternode Docker Container is running now! :)${NO_COL}\n"
     printf "\nShow your running docker container \'${CONTAINER_NAME}\' with 'docker ps'\n"
     sudo docker ps | grep ${CONTAINER_NAME}
-    printf "\nJump inside the docker container with 'docker exec -it ${CONTAINER_NAME} bash'\n"
+    printf "\nJump inside the ${BTDX_COL}BitCloud (BTDX)${NO_COL} Masternode Docker Container with ${GREEN}'docker exec -it ${CONTAINER_NAME} bash'${NO_COL}\n"
+    printf "\nCheck Log Output of ${BTDX_COL}BitCloud (BTDX)${NO_COL} Masternode with ${GREEN}'docker logs ${CONTAINER_NAME}'${NO_COL}\n"
     printf "${GREEN}HAVE FUN!${NO_COL}\n\n"
 fi
