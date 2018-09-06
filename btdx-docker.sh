@@ -28,7 +28,7 @@ BTDX_COL='\033[0;36m'
 #
 clear
 REUSE="No"
-printf "\nDOCKER SETUP FOR ${BTDX_COL}BITCLOUD (BTDX)${NO_COL} MASTERNODE SERVER\n"
+printf "\nDOCKER SETUP FOR ${BTDX_COL}BITCLOUD (BTDX) V${IMAGE_TAG}${NO_COL} MASTERNODE SERVER\n"
 printf "\nSetup Config file"
 printf "\n-----------------\n"
 if [ -f "$CONFIG" ]
@@ -124,7 +124,7 @@ sudo docker ps | grep ${CONTAINER_NAME} >/dev/null
 if [ $? -ne 0 ];then
     printf "${RED}Sorry! Something went wrong. :(${NO_COL}\n"
 else
-    printf "${GREEN}GREAT! Your ${BTDX_COL}BitCloud${GREEN} (v${IMAGE_TAG}) Masternode Docker Container is running now! :)${NO_COL}\n"
+    printf "${GREEN}GREAT! Your ${BTDX_COL}BitCloud (v${IMAGE_TAG}) ${GREEN} Masternode Docker Container is running now! :)${NO_COL}\n"
     printf "\nShow your running docker container \'${CONTAINER_NAME}\' with 'docker ps'\n"
     sudo docker ps | grep ${CONTAINER_NAME}
     printf "\nJump inside the ${BTDX_COL}BitCloud (BTDX)${NO_COL} Masternode Docker Container with ${GREEN}'docker exec -it ${CONTAINER_NAME} bash'${NO_COL}\n"
