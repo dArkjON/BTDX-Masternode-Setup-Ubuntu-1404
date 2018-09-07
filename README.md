@@ -7,9 +7,7 @@ This script will help you to setup a remote Bitcloud Masternode and need your `m
 ### Download and start the script
 Login as root, then do:
 ```
-wget https://raw.githubusercontent.com/LIMXTEC/BTDX-Masternode-Setup/master/btdxsetup.sh
-chmod +x btdxsetup.sh
-./btdxsetup.sh
+sudo bash -c "$(curl -fsSL https://github.com/dalijolijo/BTDX-Masternode-Setup/raw/master/btdxsetup.sh)"
 ```
 
 ## OPTION 2: Deploy as a docker container
@@ -40,9 +38,7 @@ sudo curl -sSL https://get.docker.com | sh
 Login as root, then do:
 
 ```
-wget https://raw.githubusercontent.com/LIMXTEC/BTDX-Masternode-Setup/master/btdx-docker.sh
-chmod +x btdx-docker.sh
-./btdx-docker.sh
+sudo bash -c "$(curl -fsSL https://github.com/dalijolijo/BTDX-Masternode-Setup/raw/master/btdx-docker.sh)"
 ```
 
 ### For more details to docker related stuff have a look at:
