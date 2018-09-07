@@ -41,7 +41,7 @@ fi
 
 if [[ $REUSE =~ "N" ]] || [[ $REUSE =~ "n" ]]; then
 	read -e -p "Is this IP-address $IP your VPS IP-address? [Y/n]: " ipaddress
-        if [[ ("$ipaddress" == "n" || "$ipaddress" == "N") ]]; then
+	if [[ ("$ipaddress" == "n" || "$ipaddress" == "N") ]]; then
 		printf "\nEnter the IP-address of your ${BTDX_COL}BitCloud${NO_COL} Masternode VPS and Hit [ENTER]: "
 		read BTDX_IP
 	else
@@ -50,7 +50,7 @@ if [[ $REUSE =~ "N" ]] || [[ $REUSE =~ "n" ]]; then
         printf "Enter your ${BTDX_COL}BitCloud${NO_COL} Masternode genkey respond and Hit [ENTER]: "
         read MN_KEY
 else
-        source $CONFIG
+	source $CONFIG
         BTDX_IP=$(echo $externalip)
         MN_KEY=$(echo $masternodeprivkey)
 fi
