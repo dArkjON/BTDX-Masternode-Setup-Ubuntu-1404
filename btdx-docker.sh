@@ -1,9 +1,9 @@
 #!/bin/bash
 set -u
 
-GIT_REPO="dalijolijo"
+GIT_REPO="LIMXTEC"
 GIT_PROJECT="BTDX-Masternode-Setup"
-DOCKER_REPO="dalijolijo"
+DOCKER_REPO="limxtec"
 IMAGE_NAME="btdx-masternode"
 IMAGE_TAG="2.1.0.0" #BTDX Version 2.1.0.0
 CONFIG="/home/bitcloud/.bitcloud/bitcloud.conf"
