@@ -1,13 +1,27 @@
 # BTDX-Masternode-Setup
-## OPTION 1: Installation with script
+## OPTION 1: Installation/update with script
 
 This script will help you to setup a remote Bitcloud Masternode and need your `masternode genkey` output from your local wallet.
-***Only working for Linux Ubuntu 14.04 LTS***
+***Only working for Linux Ubuntu 16.04***
 
-### Download and start the script
+### Download and start the setup script
 Login as root, then do:
 ```
-sudo bash -c "$(curl -fsSL https://github.com/LIMXTEC/BTDX-Masternode-Setup/raw/master/btdxsetup.sh)"
+sudo bash -c "$(curl -fsSL https://github.com/LIMXTEC/BTDX-Masternode-Setup/raw/master/masternode-setup.sh)"
+```
+
+### Optional: Download and start the update script
+Important: Use this script only if you run our [**masternode setup script**](https://github.com/LIMXTEC/BTDX-Masternode-Setup/raw/master/masternode-setup.sh)\
+Login as root, then do:
+```
+sudo bash -c "$(curl -fsSL https://github.com/LIMXTEC/BTDX-Masternode-Setup/raw/master/masternode-update.sh)"
+```
+
+### Optional: Download and start the bootstrap script
+Every 3 hours will be our BitCloud bootstrap refreshed. To get latest bootstrap/blockchain files, you need to login as root.
+Used path in this bootstrap script is **/root/.bitcloud**
+```
+sudo bash -c "$(curl -fsSL https://github.com/LIMXTEC/BTDX-Masternode-Setup/raw/master/bootstrap.sh)"
 ```
 
 ## OPTION 2: Deploy as a docker container
