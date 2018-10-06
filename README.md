@@ -1,3 +1,5 @@
+[![docker pulls](https://img.shields.io/docker/pulls/limxtec/btdx-masternode.svg?style=flat)](https://hub.docker.com/r/limxtec/btdx-masternode/)
+
 # BTDX-Masternode-Setup
 ## OPTION 1: Installation/update with script
 
