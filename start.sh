@@ -19,6 +19,8 @@ sed -i "s|^\(rpcuser=\).*|rpcuser=btdxmasternode$(openssl rand -base64 32)|g" /h
 sed -i "s|^\(rpcpassword=\).*|rpcpassword=$(openssl rand -base64 32)|g" /home/bitcloud/.bitcloud/bitcloud.conf
 sed -i "s|^\(masternodeprivkey=\).*|masternodeprivkey=${MN_KEY}|g" /home/bitcloud/.bitcloud/bitcloud.conf
 sed -i "s|^\(externalip=\).*|externalip=${BTDX_IP}|g" /home/bitcloud/.bitcloud/bitcloud.conf 
+RPC_ALLOWIP=$(ip addr | grep 'global eth0' | xargs | cut -f2 -d ' ')
+sed -i "s#^\(rpcallowip=\).*#rpcallowip=${RPC_ALLOWIP}#g" /home/bitcloud/.bitcloud/bitcloud.conf
 
 #
 # Downloading bootstrap file

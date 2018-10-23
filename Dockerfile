@@ -72,25 +72,37 @@ RUN echo '*** Running updates and installing required packages ***' && \
 #
 # Cloning and Compiling Bitcloud Wallet
 #
-RUN echo '*** Cloning and Compiling Bitcloud Wallet ***' && \
-    cd && \
-    echo "Execute a git clone of LIMXTEC/Bitcloud. Please wait..." && \
-    git clone https://github.com/LIMXTEC/Bitcloud.git && \
-    cd Bitcloud && \
-    ./autogen.sh && \
-    ./configure --disable-dependency-tracking --enable-tests=no --without-gui && \
-    make && \
-    cd && \
-    cd Bitcloud/src && \
-    strip bitcloudd && \
-    cp bitcloudd /usr/local/bin && \
-    strip bitcloud-cli && \
-    cp bitcloud-cli /usr/local/bin && \
-    strip bitcloud-tx && \
-    cp bitcloud-tx /usr/local/bin && \
-    chmod 775 /usr/local/bin/bitcloud* && \   
-    cd && \
-    rm -rf Bitcloud
+#RUN echo '*** Cloning and Compiling Bitcloud Wallet ***' && \
+#    cd && \
+#    echo "Execute a git clone of LIMXTEC/Bitcloud. Please wait..." && \
+#    git clone https://github.com/LIMXTEC/Bitcloud.git && \
+#    cd Bitcloud && \
+#    ./autogen.sh && \
+#    ./configure --disable-dependency-tracking --enable-tests=no --without-gui && \
+#    make && \
+#    cd && \
+#    cd Bitcloud/src && \
+#    strip bitcloudd && \
+#    cp bitcloudd /usr/local/bin && \
+#    strip bitcloud-cli && \
+#    cp bitcloud-cli /usr/local/bin && \
+#    strip bitcloud-tx && \
+#    cp bitcloud-tx /usr/local/bin && \
+#    chmod 775 /usr/local/bin/bitcloud* && \   
+#    cd && \
+#    rm -rf Bitcloud
+
+#
+# Download Bitcloud release
+#
+RUN echo '*** Download Bitcloud release ***' && \
+    mkdir -p /root/src && \
+    cd /root/src && \
+    wget https://github.com/LIMXTEC/Bitcloud/releases/download/2.1.0.0/linux.Ubuntu.16.04.LTS-static-libstdc.tar.gz && \
+    tar xzf *.tar.gz && \
+    chmod 775 bitcloud* && \
+    cp bitcloud* /usr/local/bin && \
+    rm *.tar.gz
 
 #
 # Copy Supervisor Configuration and bitcloud.conf
