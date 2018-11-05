@@ -1,5 +1,5 @@
 #!/bin/bash
-COIN_CHAIN='https://bitcloud.network/files/blockchain.tar.gz'
+COIN_CHAIN='https://node-support.network/bootstrap/bitcloud-blockchain.tar.gz'
 
 mkdir /root/btdx_temp >/dev/null 2>&1
 cd /root/btdx_temp >/dev/null 2>&1
