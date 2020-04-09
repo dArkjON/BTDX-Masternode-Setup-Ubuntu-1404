@@ -36,30 +36,30 @@ function download_node() {
 
 
 function configure_systemd() {
-    cat << EOF > /etc/systemd/system/$COIN_NAME.service
-    [Unit]
-    Description=$COIN_NAME service
-    After=network.target
-    
-    [Service]
-    User=root
-    Group=root
-    
-    Type=forking
-    
-    ExecStart=$COIN_PATH$COIN_DAEMON -daemon -conf=$CONFIGFOLDER/$CONFIG_FILE -datadir=$CONFIGFOLDER
-    ExecStop=-$COIN_PATH$COIN_CLI -conf=$CONFIGFOLDER/$CONFIG_FILE -datadir=$CONFIGFOLDER stop
-    
-    Restart=always
-    PrivateTmp=true
-    TimeoutStopSec=60s
-    TimeoutStartSec=10s
-    StartLimitInterval=120s
-    StartLimitBurst=5
-    
-    [Install]
-    WantedBy=multi-user.target
-    EOF
+cat << EOF > /etc/systemd/system/$COIN_NAME.service
+[Unit]
+Description=$COIN_NAME service
+After=network.target
+
+[Service]
+User=root
+Group=root
+
+Type=forking
+
+ExecStart=$COIN_PATH$COIN_DAEMON -daemon -conf=$CONFIGFOLDER/$CONFIG_FILE -datadir=$CONFIGFOLDER
+ExecStop=-$COIN_PATH$COIN_CLI -conf=$CONFIGFOLDER/$CONFIG_FILE -datadir=$CONFIGFOLDER stop
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=10s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target
+EOF
     
     systemctl daemon-reload
     sleep 3
@@ -80,15 +80,15 @@ function create_config() {
     mkdir $CONFIGFOLDER >/dev/null 2>&1
     RPCUSER=$(tr -cd '[:alnum:]' < /dev/urandom | fold -w16 | head -n1)
     RPCPASSWORD=$(tr -cd '[:alnum:]' < /dev/urandom | fold -w64 | head -n1)
-    cat << EOF > $CONFIGFOLDER/$CONFIG_FILE
-    rpcuser=$RPCUSER
-    rpcpassword=$RPCPASSWORD
-    rpcport=$RPC_PORT
-    rpcallowip=127.0.0.1
-    listen=1
-    server=1
-    daemon=0
-    EOF
+cat << EOF > $CONFIGFOLDER/$CONFIG_FILE
+rpcuser=$RPCUSER
+rpcpassword=$RPCPASSWORD
+rpcport=$RPC_PORT
+rpcallowip=127.0.0.1
+listen=1
+server=1
+daemon=0
+EOF
 }
 
 function create_key() {
@@ -114,14 +114,14 @@ clear
 
 function update_config() {
     sed -i 's/daemon=1/daemon=0/' $CONFIGFOLDER/$CONFIG_FILE
-    cat << EOF >> $CONFIGFOLDER/$CONFIG_FILE
-    logintimestamps=1
-    maxconnections=64
-    masternode=1
-    externalip=$NODEIP:$COIN_PORT
-    masternodeaddr=127.0.0.1:$COIN_PORT
-    masternodeprivkey=$COINKEY
-    EOF
+cat << EOF >> $CONFIGFOLDER/$CONFIG_FILE
+logintimestamps=1
+maxconnections=64
+masternode=1
+externalip=$NODEIP:$COIN_PORT
+masternodeaddr=127.0.0.1:$COIN_PORT
+masternodeprivkey=$COINKEY
+EOF
 }
 
 function enable_firewall() {
