@@ -19,7 +19,6 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m'
 
-
 function download_node() {
     echo -e "Prepare to download ${GREEN}$COIN_NAME${NC}."
     cd $TMP_FOLDER >/dev/null 2>&1
@@ -33,7 +32,6 @@ function download_node() {
     rm -rf $TMP_FOLDER >/dev/null 2>&1
     clear
 }
-
 
 function configure_systemd() {
 cat << EOF > /etc/systemd/system/$COIN_NAME.service
@@ -74,7 +72,6 @@ EOF
         exit 1
     fi
 }
-
 
 function create_config() {
     mkdir $CONFIGFOLDER >/dev/null 2>&1
@@ -135,7 +132,6 @@ function enable_firewall() {
     clear
 }
 
-
 function get_ip() {
     declare -a NODE_IPS
     for ips in $(netstat -i | awk '!/Kernel|Iface|lo/ {print $1," "}')
@@ -158,14 +154,12 @@ function get_ip() {
     fi
 }
 
-
 function compile_error() {
 if [ "$?" -gt "0" ]; then
     echo -e "${RED}Failed to compile $COIN_NAME. Please investigate.${NC}"
     exit 1
 fi
 }
-
 
 function checks() {
 if [[ $(lsb_release -d) != *16.04* ]]; then
